@@ -3,21 +3,21 @@ const Stripe = require('stripe')
 const cors = require('cors')
 const admin = require('firebase-admin')
 const app = express()
+require('dotenv').config()
 
-const stripe = new Stripe('sk_test_51JsKcvG0L7Mcv8rUfCRxplsvPa8QusifVjnMKwLWCCeZllyQTGXzFB4axP4SnXw7FNvpfMY0j96bdNLixVcGEKag00k78K431L')
+const stripe = new Stripe(process.env.SK_STRIPE)
 
 var serviceAccount = require("./testfront-1f155-firebase-adminsdk-6f20f-23a26e99df.json");
-
 admin.initializeApp({
   credential: admin.credential.cert(serviceAccount),
-  databaseURL: "https://testfront-1f155-default-rtdb.firebaseio.com/",
+  databaseURL: process.env.DATA_BASE_FIREBASE,
 })
 
 
 const db = admin.database()
 
 
-app.use(cors({ origin: 'http://localhost:3000' }))
+app.use(cors({ origin: '*' }))
 app.use(express.json())
 
 app.post('/api/checkout', async (req, res) => {
@@ -47,7 +47,7 @@ app.get('/', async (req, res) => {
   res.send('Hello motherfuckers')
 })
 
-app.listen(4000, () => {
-  console.log('server on port ', 4000);
+app.listen(process.env.PORT, () => {
+  console.log('server on port ', process.env.PORT);
 })
 
