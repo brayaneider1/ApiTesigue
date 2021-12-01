@@ -4,13 +4,13 @@ const cors = require('cors')
 const admin = require('firebase-admin')
 const app = express()
 
-const stripe = new Stripe('sk_test_51JsKcvG0L7Mcv8rUfCRxplsvPa8QusifVjnMKwLWCCeZllyQTGXzFB4axP4SnXw7FNvpfMY0j96bdNLixVcGEKag00k78K431L')
-
+const stripe = new Stripe('sk_test_51IXIrdEGW06CZVl3H0akMZ6vqjMPVNXvkgCUZKyd3M3LW6ufT5aAfBVkGzlnNbvgSaIBETm2nTNfKkp3uw56erf300CHVM9dN2')
+ 
 var serviceAccount = require("./testfront-1f155-firebase-adminsdk-6f20f-23a26e99df.json");
 
 admin.initializeApp({
   credential: admin.credential.cert(serviceAccount),
-  databaseURL: "https://testfront-1f155-default-rtdb.firebaseio.com/",
+  databaseURL: "https://beu-link-default-rtdb.firebaseio.com/",
 })
 
 
@@ -30,10 +30,6 @@ app.post('/api/checkout', async (req, res) => {
       payment_method: id,
       confirm: true
     })
-
-    console.log('====================================');
-    console.log(response);
-    console.log('====================================');
 
     db.ref('payments').push(req.body)
     res.send(response)
