@@ -23,7 +23,7 @@ app.use(express.json())
 app.post('/api/checkout', async (req, res) => {
   try {
     const { id, amount } = req.body
-    const Amount = parseFloat(amount)
+    const Amount = +amount
     const response = await stripe.paymentIntents.create({
       amount: Amount,
       currency: 'USD',
