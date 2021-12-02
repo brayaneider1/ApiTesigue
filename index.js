@@ -23,8 +23,9 @@ app.use(express.json())
 app.post('/api/checkout', async (req, res) => {
   try {
     const { id, amount } = req.body
+    const Amount = parseFloat(amount)
     const response = await stripe.paymentIntents.create({
-      amount,
+      amount: Amount,
       currency: 'USD',
       description: 'Subscription to Tesigue',
       payment_method: id,
